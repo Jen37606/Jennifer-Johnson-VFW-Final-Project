@@ -1,3 +1,4 @@
+// GET ITEMS FUNCTION		----------------------------
 function getItems(){
 	if(localStorage.getItem('apptitle')){
 		var genre = localStorage.getItem('appgenre');
@@ -49,6 +50,7 @@ function getItems(){
 	}
 }
 
+// SAVE ITEMS FUNCTION		----------------------------
 function saveItems(id){
 	var genre = document.getElementById('genre').value;
 	var title = document.getElementById('title').value;
@@ -86,6 +88,7 @@ function saveItems(id){
 	localStorage.setItem('appdescription', description);
 }
 
+// EDIT ITEMS FUNCTION		----------------------------
 function editItem(id){
 	var value = localStorage.getItem(id);
 	var itemId = id;
@@ -113,16 +116,17 @@ function editItem(id){
 	}else{
 		document.getElementById('no').setAttribute("checked", "checked");
 	}
-	document.getElementById('family').value = family;
 	document.getElementById('release').value = release;
 	document.getElementById('description').value = description;
 }
 
+// CLEAR ITEMS FUNCTION		----------------------------
 function clearItems(){
 	localStorage.clear();
 	return false;
 }
 
+// VALIDATE FORM FUNCTION	----------------------------
 function validateForm(){
 	var getGenre = document.getElementById('genre').value;
 	var getTitle = document.getElementById('title').value;
