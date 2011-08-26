@@ -118,6 +118,57 @@ function editItem(id){
 	}
 	document.getElementById('release').value = release;
 	document.getElementById('description').value = description;
+	
+	// show edit item button, hide submit button
+	var editItem = document.getElementById('editItem');
+	editItem.style.display = "block";
+	var submit = document.getElementById('submit');
+	submit.style.display = "none";
+	
+	// when clicking editItem button
+	document.getElementById('editItem').onclick = function(){
+		var genre = document.getElementById('genre').value;
+		var title = document.getElementById('title').value;
+		var actor = document.getElementById('actor').value;
+			if(actor == "Enter Actor/Actress Name"){ 
+				actor = "";
+			}
+		// if you left the value with the default text than this will make the value blank
+		var director = document.getElementById('director').value;
+			if(director == "Enter Director Name"){
+				director = "";
+			}
+		var rating = document.getElementById('rating').value;
+		var favorites = document.getElementById('favorites').value;
+		if(favorites == "on"){ 
+			var favorites = "Yes" // if favorite is checked say yes
+		}else{
+			var favorites = "No" // if not, say no
+		}
+		if(document.getElementById('yes').checked){
+			var family = "This is a family movie"
+		}else{
+			var family = "This is not a family movie"
+		}
+		var release = document.getElementById('release').value;
+		var description = document.getElementById('description').value;	
+		var allItems = [
+			genre,
+			title,
+			actor,
+			director,
+			rating,
+			favorites,
+			family,
+			release,
+			description
+		]
+		if(genre != "choose" && title != "" && title != "Enter Movie Title" && release != ""){
+			localStorage.setItem(itemId, allItems.join(';'));
+		}else{
+			alert("All fields are required.");
+		}
+	};
 }
 
 // CLEAR ITEMS FUNCTION		----------------------------
