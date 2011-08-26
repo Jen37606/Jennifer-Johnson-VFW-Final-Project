@@ -30,7 +30,13 @@ function getItems(){
 			"<img src=\"images/" + genreImage + "\" border=\"0\" alt=\"Movie Genre\" width=\"100\" height=\"100\" />"; // added image tag
 		
 		document.getElementById('main').style.display = "none";
-		document.write("<div id='newmovie'><h2>New Movie Added</h2><p>" + viewMovie + "</p>");
+		var getListdiv = document.getElementById('list');
+		for (var i=0, j=viewMovie.length; i < j; i++){
+			var newPara = document.createElement("p");
+			var itemTxt = document.createTextNode(viewItems[i]);
+			newPara.appendChild(itemTxt);
+			getListdiv.appendChild(newPara);
+		}
 		var clearLink = document.getElementById('clear');
 		clearLink.style.display = "block";
 	}else{
@@ -78,6 +84,38 @@ function saveItems(id){
 	localStorage.setItem('appfamily', family);
 	localStorage.setItem('apprelease', release);
 	localStorage.setItem('appdescription', description);
+}
+
+function editItem(id){
+	var value = localStorage.getItem(id);
+	var itemId = id;
+	value = value.split(';');
+	var genre = value[0];
+	var title = value[1];
+	var actor = value[2];
+	var director = value[3];
+	var rating = value[4];
+	var favorites = value[5];
+	var family = value[6];
+	var release = value[7];
+	var description = value[8];
+	
+	document.getElementById('genre').value = genre;
+	document.getElementById('title').value = title;
+	document.getElementById('actor').value = actor;
+	document.getElementById('director').value = director;
+	document.getElementById('rating').value = rating;
+	if(favorite == "yes"){
+		document.getElementById('favorites').setAttribute("checked", "checked");
+	}
+	if(family == "This is a family movie"){
+		document.getElementById('yes').setAttribute("checked", "checked");
+	}else{
+		document.getElementById('no').setAttribute("checked", "checked");
+	}
+	document.getElementById('family').value = family;
+	document.getElementById('release').value = release;
+	document.getElementById('description').value = description;
 }
 
 function clearItems(){
