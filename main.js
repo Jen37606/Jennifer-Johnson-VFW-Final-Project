@@ -5,7 +5,7 @@ function getItems(){
 	for(var i=0, len = localStorage.length; i < len; i++){
 		var key = localStorage.key(i);
 		var value = localStorage.getItem(key);
-		value = value.split(';');
+		value = value.split(',');
 		var genre = value[0];
 		var title = value[1];
 		var actor = value[2];
@@ -23,11 +23,16 @@ function getItems(){
 			newDiv.appendChild(newPara);
 			getListdiv.appendChild(newDiv);
 		}
-
+		var genreImage = "other.jpg"; 
+			if(genre == "comedy"){ genreImage = "comedy.jpg"; }
+			if(genre == "drama"){ genreImage = "drama.jpg"; }
+			if(genre == "action"){ genreImage = "action.jpg"; }
+			if(genre == "horror"){ genreImage = "horror.jpg"; }
+			if(genre == "documentary"){ genreImage = "documentary.jpg"; }
 		//add image
 		var newP = document.createElement("p");
 		var newImg = document.createElement("IMG");
-		newImg.setAttribute("src", "images/" + genre + ".jpg");
+		newImg.setAttribute("src", "images/" + genreImage);
 		newP.appendChild(newImg);
 		getListdiv.appendChild(newP);
 		
@@ -48,8 +53,8 @@ function getItems(){
 		newDiv.appendChild(editLink);
 		}
 		
-	if(localStorage.getItem('apptitle')){
-
+		if(localStorage.getItem('apptitle')){
+/*
 		var genre = localStorage.getItem('appgenre');
 		var title = localStorage.getItem('apptitle');
 		var actor = localStorage.getItem('appactor');
@@ -60,7 +65,7 @@ function getItems(){
 		var release = localStorage.getItem('apprelease');
 		var description = localStorage.getItem('appdescription');	
 		
-		// Listed all information neatly
+	// Listed all information neatly
 		var viewMovie = [
 				genre,
 				title,
@@ -72,7 +77,7 @@ function getItems(){
 				release,
 				description
 			]
-/*				
+				
 		//document.getElementById('main').style.display = "none";
 		var getListdiv = document.getElementById('list');
 		for (var i=0, j=viewMovie.length; i < j; i++){
@@ -135,23 +140,14 @@ function saveItems(id){
 		description
 	];
 	localStorage.setItem(key, allItems);
-	/*
-	localStorage.setItem('appgenre', genre);
-	localStorage.setItem('apptitle', title);
-	localStorage.setItem('appactor', actor);
-	localStorage.setItem('appdirector', director);
-	localStorage.setItem('apprating', rating);
-	localStorage.setItem('appfavorites', favorites);
-	localStorage.setItem('appfamily', family);
-	localStorage.setItem('apprelease', release);
-	localStorage.setItem('appdescription', description);*/
 }
 
 // EDIT ITEMS FUNCTION		----------------------------
 function editItem(id){
+	//alert(id);
 	var itemId = id;
-	var value = localStorage.getItem(id);
-	value = value.split(';');
+	var value = localStorage.getItem(itemId);
+	value = value.split(',');
 	var genre = value[0];
 	var title = value[1];
 	var actor = value[2];
@@ -225,6 +221,7 @@ function editItem(id){
 		];
 		if(genre != "choose" && title != "" && title != "Enter Movie Title" && release != ""){
 			localStorage.setItem(itemId, allItems);
+			alert("Item Updated!");
 		}else{
 			alert("All fields are required.");
 		}
