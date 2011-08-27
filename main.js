@@ -1,6 +1,53 @@
 // GET ITEMS FUNCTION		----------------------------
 function getItems(){
+	var getListdiv = document.getElementById("list");
+	
+	for(var i=0, len = localStorage.length; i < len; i++){
+		var key = localStorage.key(i);
+		var value = localStorage.getItem(key);
+		value = value.split(';');
+		var genre = value[0];
+		var title = value[1];
+		var actor = value[2];
+		var director = value[3];
+		var rating = value[4];
+		var favorites = value[5];
+		var family = value[6];
+		var release = value[7];
+		var description = value[8];
+		var newDiv = document.createElement("div");
+		for(var ii=0, allLength = value.length; ii < allLength; ii++){
+			var newPara = document.createElement("p");
+			var itemTxt = document.createTextNode(value[ii]);
+			newPara.appendChild(itemTxt);
+			newDiv.appendChild(newPara);
+			getListdiv.appendChild(newDiv);
+		}
+
+		//add image
+		var newImg = document.createElement("img");
+		var setSrc = newImg.setAttribute("src", "images/" + genre + ".jpg");
+		newDiv.appendChild(newImg);	
+		
+		//delete single item link
+		var deleteLink = document.createElement("a");
+		var setHref = deleteLink.setAttribute("href", "#");
+		var setOnclick = deleteLink.setAttribute("onclick", "deleteItem(" + key + ");");
+		var deleteText = document.createTextNode("delete item");
+		deleteLink.appendChild(deleteText);
+		newDiv.appendChild(deleteLink);
+		
+		//edit single item link
+		var editLink = document.createElement("a");
+		var setHref = editLink.setAttribute("href", "#");
+		var setOnclick = editLink.setAttribute("onclick", "editItem(" + key + ");");
+		var editText = document.createTextNode("edit item");
+		editLink.appendChild(editText);
+		newDiv.appendChild(editLink);
+		}
+		
 	if(localStorage.getItem('apptitle')){
+
 		var genre = localStorage.getItem('appgenre');
 		var title = localStorage.getItem('apptitle');
 		var actor = localStorage.getItem('appactor');
@@ -10,34 +57,29 @@ function getItems(){
 		var family = localStorage.getItem('appfamily');
 		var release = localStorage.getItem('apprelease');
 		var description = localStorage.getItem('appdescription');	
-		// I created a variable for the image name and changed the image name for each genre
-		var genreImage = "other.jpg"; 
-			if(genre == "Comedy"){ genreImage = "comedy.jpg"; }
-			if(genre == "Drama"){ genreImage = "drama.jpg"; }
-			if(genre == "Action"){ genreImage = "action.jpg"; }
-			if(genre == "Horror"){ genreImage = "horror.jpg"; }
-			if(genre == "Documentary"){ genreImage = "documentary.jpg"; }
 		
 		// Listed all information neatly
-		var viewMovie = "<strong>Genre:</strong> " + genre + "<br />" + 
-			"<strong>Title:</strong> " + title + "<br />" + 
-			"<strong>Actor/Actress:</strong> " + actor + "<br />" + 
-			"<strong>Director:</strong> " + director + "<br />" + 
-			"<strong>Rating:</strong> " + rating + "<br />" + 
-			"<strong>Favorite Movie? </strong> " + favorites + "<br />" + 
-			"<strong>Family Movie? </strong>" + family + "<br />" + 
-			"<strong>Release Date:</strong> " + release + "<br />" + 
-			"<strong>Description:</strong> " + description + "<br /><br />" + 
-			"<img src=\"images/" + genreImage + "\" border=\"0\" alt=\"Movie Genre\" width=\"100\" height=\"100\" />"; // added image tag
-		
-		document.getElementById('main').style.display = "none";
+		var viewMovie = [
+				genre,
+				title,
+				actor,
+				director,
+				rating,
+				favorites,
+				family,
+				release,
+				description
+			]
+/*				
+		//document.getElementById('main').style.display = "none";
 		var getListdiv = document.getElementById('list');
 		for (var i=0, j=viewMovie.length; i < j; i++){
 			var newPara = document.createElement("p");
-			var itemTxt = document.createTextNode(viewItems[i]);
+			var itemTxt = document.createTextNode(viewMovie);
 			newPara.appendChild(itemTxt);
 			getListdiv.appendChild(newPara);
 		}
+*/	
 		var clearLink = document.getElementById('clear');
 		clearLink.style.display = "block";
 	}else{
@@ -169,6 +211,17 @@ function editItem(id){
 			alert("All fields are required.");
 		}
 	};
+}
+
+// DELETE ITEM FUNCTION		----------------------------
+function deleteItem(){
+	var ask = confirm("Are you sure?");
+	if(ask){
+		localStorage.removeItem(id);
+		window.location.reload();
+	}else{
+		alert("Item not removed.");
+	}
 }
 
 // CLEAR ITEMS FUNCTION		----------------------------
