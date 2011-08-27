@@ -25,9 +25,11 @@ function getItems(){
 		}
 
 		//add image
-		var newImg = document.createElement("img");
-		var setSrc = newImg.setAttribute("src", "images/" + genre + ".jpg");
-		newDiv.appendChild(newImg);	
+		var newP = document.createElement("p");
+		var newImg = document.createElement("IMG");
+		newImg.setAttribute("src", "images/" + genre + ".jpg");
+		newP.appendChild(newImg);
+		getListdiv.appendChild(newP);
 		
 		//delete single item link
 		var deleteLink = document.createElement("a");
@@ -94,6 +96,8 @@ function getItems(){
 
 // SAVE ITEMS FUNCTION		----------------------------
 function saveItems(id){
+	var d = new Date();
+    var key= (d.getTime());
 	var genre = document.getElementById('genre').value;
 	var title = document.getElementById('title').value;
 	var actor = document.getElementById('actor').value;
@@ -119,6 +123,19 @@ function saveItems(id){
 	}
 	var release = document.getElementById('release').value;
 	var description = document.getElementById('description').value;
+	var allItems = [
+		genre,
+		title,
+		actor,
+		director,
+		rating,
+		favorites,
+		family,
+		release,
+		description
+	];
+	localStorage.setItem(key, allItems);
+	/*
 	localStorage.setItem('appgenre', genre);
 	localStorage.setItem('apptitle', title);
 	localStorage.setItem('appactor', actor);
@@ -127,13 +144,13 @@ function saveItems(id){
 	localStorage.setItem('appfavorites', favorites);
 	localStorage.setItem('appfamily', family);
 	localStorage.setItem('apprelease', release);
-	localStorage.setItem('appdescription', description);
+	localStorage.setItem('appdescription', description);*/
 }
 
 // EDIT ITEMS FUNCTION		----------------------------
 function editItem(id){
-	var value = localStorage.getItem(id);
 	var itemId = id;
+	var value = localStorage.getItem(id);
 	value = value.split(';');
 	var genre = value[0];
 	var title = value[1];
@@ -150,7 +167,8 @@ function editItem(id){
 	document.getElementById('actor').value = actor;
 	document.getElementById('director').value = director;
 	document.getElementById('rating').value = rating;
-	if(favorite == "yes"){
+	document.getElementById('favorites').value = favorites;
+	if(favorites == "yes"){
 		document.getElementById('favorites').setAttribute("checked", "checked");
 	}
 	if(family == "This is a family movie"){
@@ -204,9 +222,9 @@ function editItem(id){
 			family,
 			release,
 			description
-		]
+		];
 		if(genre != "choose" && title != "" && title != "Enter Movie Title" && release != ""){
-			localStorage.setItem(itemId, allItems.join(';'));
+			localStorage.setItem(itemId, allItems);
 		}else{
 			alert("All fields are required.");
 		}
@@ -214,7 +232,7 @@ function editItem(id){
 }
 
 // DELETE ITEM FUNCTION		----------------------------
-function deleteItem(){
+function deleteItem(id){
 	var ask = confirm("Are you sure?");
 	if(ask){
 		localStorage.removeItem(id);
