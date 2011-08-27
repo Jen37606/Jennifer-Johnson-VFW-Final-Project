@@ -14,7 +14,19 @@ h2{
 	font-weight: bold;
 	color: #555;
 	text-transform: capitalize;
-	text-align: left;
+}
+
+#button h2{
+	background: #eee;
+	border: 1px solid #bbb;
+	padding: 10px;
+	text-align: center;
+}
+
+p{
+	font: 12px Arial;
+	font-weight: normal;
+	color: #555;
 }
 
 fieldset{

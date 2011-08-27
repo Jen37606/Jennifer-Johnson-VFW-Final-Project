@@ -34,7 +34,6 @@ function getItems(){
 		var newImg = document.createElement("IMG");
 		newImg.setAttribute("src", "images/" + genreImage);
 		newP.appendChild(newImg);
-		getListdiv.appendChild(newP);
 		
 		//delete single item link
 		var deleteLink = document.createElement("a");
@@ -42,7 +41,7 @@ function getItems(){
 		var setOnclick = deleteLink.setAttribute("onclick", "deleteItem(" + key + ");");
 		var deleteText = document.createTextNode("delete item");
 		deleteLink.appendChild(deleteText);
-		newDiv.appendChild(deleteLink);
+		newP.appendChild(deleteLink);
 		
 		//edit single item link
 		var editLink = document.createElement("a");
@@ -50,43 +49,11 @@ function getItems(){
 		var setOnclick = editLink.setAttribute("onclick", "editItem(" + key + ");");
 		var editText = document.createTextNode("edit item");
 		editLink.appendChild(editText);
-		newDiv.appendChild(editLink);
+		newP.appendChild(editLink);
+		getListdiv.appendChild(newP);
 		}
 		
 		if(localStorage.getItem('apptitle')){
-/*
-		var genre = localStorage.getItem('appgenre');
-		var title = localStorage.getItem('apptitle');
-		var actor = localStorage.getItem('appactor');
-		var director = localStorage.getItem('appdirector');
-		var rating = localStorage.getItem('apprating');
-		var favorites = localStorage.getItem('appfavorites');
-		var family = localStorage.getItem('appfamily');
-		var release = localStorage.getItem('apprelease');
-		var description = localStorage.getItem('appdescription');	
-		
-	// Listed all information neatly
-		var viewMovie = [
-				genre,
-				title,
-				actor,
-				director,
-				rating,
-				favorites,
-				family,
-				release,
-				description
-			]
-				
-		//document.getElementById('main').style.display = "none";
-		var getListdiv = document.getElementById('list');
-		for (var i=0, j=viewMovie.length; i < j; i++){
-			var newPara = document.createElement("p");
-			var itemTxt = document.createTextNode(viewMovie);
-			newPara.appendChild(itemTxt);
-			getListdiv.appendChild(newPara);
-		}
-*/	
 		var clearLink = document.getElementById('clear');
 		clearLink.style.display = "block";
 	}else{
@@ -164,7 +131,7 @@ function editItem(id){
 	document.getElementById('director').value = director;
 	document.getElementById('rating').value = rating;
 	document.getElementById('favorites').value = favorites;
-	if(favorites == "yes"){
+	if(favorites == "Yes"){
 		document.getElementById('favorites').setAttribute("checked", "checked");
 	}
 	if(family == "This is a family movie"){
